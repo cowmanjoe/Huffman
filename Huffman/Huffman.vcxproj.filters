@@ -27,15 +27,18 @@
     <ClInclude Include="codetree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Google Drive\School 16-17\CPSC 221\project2\huftree.cc">
+    <ClCompile Include="codetree.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="codetree.cc">
+    <ClCompile Include="huftree.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

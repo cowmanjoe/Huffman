@@ -146,12 +146,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codetree.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Google Drive\School 16-17\CPSC 221\project2\huftree.cc" />
     <ClCompile Include="codetree.cc" />
+    <ClCompile Include="huftree.cc" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
