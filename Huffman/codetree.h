@@ -16,6 +16,5 @@ protected:
 	void swapDown(int*, int, int); 
 	void heapify(int*, int); 
 
-	std::vector<Node> characters;
-	int abc; 
+	std::vector<Node*> queue;
 };
