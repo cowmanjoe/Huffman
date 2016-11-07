@@ -1,5 +1,6 @@
 #include "node.h"
 #include <vector> 
+#include <string>
 
 class CodeTree {
 
@@ -19,7 +20,7 @@ protected:
 	void swapDown(int*, int, int); 
 	void heapify(int*, int); 
 
-	int getCode(Node* root, char c); 
+	std::string getCode(Node* root, char c); 
 
 	
 

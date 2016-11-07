@@ -35,6 +35,8 @@ int main(int argc, char *argv[]) {
 
 	ct.printTree();
 	ct.printCode();
+
+	std::cout << "Press Enter to continue.\n";
 	std::cin.get(); 
 	return 0;
 }

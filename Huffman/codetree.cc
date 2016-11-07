@@ -1,6 +1,7 @@
 #include "codetree.h"
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std; 
 	
@@ -33,17 +34,16 @@ CodeTree::CodeTree(int freq[]) {
 
 		Node* p = new Node; 
 		p->freq = a->freq + b->freq; 
+		p->ch = NULL; 
 		p->left = a; 
 		p->right = b; 
 		queue.push_back(p); 
 		cout << "Added node with frequency " << p->freq << endl; //" with p->left->ch = " << *(a->ch) << " and p->right->ch = " << *(b->ch) << endl;
 		
 	}
-	cout << "abcd\n"; 
 
 	cout << "\"o\" = " << getCode(queue[0], 'o') << endl; 
 	cout << "\"m\" = " << getCode(queue[0], 'm') << endl; 
-
 
 }
 
@@ -127,23 +127,27 @@ bool containsChar(Node* root, char c) {
 	return containsChar(root->left, c) || containsChar(root->right, c);  
 }
 	
-// returns the code associated with a char on its final
-// recursive call. Returns -1 if it fails to find the char
-int getCodeHelper(Node* root, char c, int acc) {
+// helper for getCode function
+string getCodeHelper(Node* root, char c, string acc) {
 	if (root->ch) return acc; 
-	if (containsChar(root->left, c)) 
-		return getCodeHelper(root->left, c, (acc << 1));
-	if (containsChar(root->right, c))
-		return getCodeHelper(root->right, c, (acc << 1) + 1); 
-	else return -1; 
+	// check if it is in the left child 
+	if (containsChar(root->left, c)) {
+		acc += '0'; 
+		return getCodeHelper(root->left, c, acc);
+	}
+	// Assume it is in the right child 
+	else {
+		acc += '1';
+		return getCodeHelper(root->right, c, acc);
+	}
 }
 
 // Gets the code associated with a char in the tree with 
 // root at root. Returns -1 if the tree does not contain 
 // the char
-int CodeTree::getCode(Node* root, char c) {
+string CodeTree::getCode(Node* root, char c) {
 	if (containsChar(root, c))
-		return getCodeHelper(root, c, 0); 
+		return getCodeHelper(root, c, ""); 
 	else 
-		return -1; 
+		return ""; 
 }
