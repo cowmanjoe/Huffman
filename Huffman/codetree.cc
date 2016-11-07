@@ -6,31 +6,43 @@ using namespace std;
 	
 	
 CodeTree::CodeTree(int freq[]) {
-	vector<Node*> characters;
 
-	// Insert nodes with corresponding frequencies into characters vector
-	for (unsigned int i = 0; i < 256; i++) {
-		Node* node = new Node; 
-		node->freq = freq[i]; 
-		char* c = new char; 
-		*c = (char)i; 
-		node->ch = c; 
-		characters.push_back(node);
-		cout << "Pushed node with frequency " << node->freq << " and char " << *(node->ch) << endl; 
+	for (int i = 0; i < 256; i++) {
+		cout << "freq[" << i << "] = " << freq[i] << "ch = " << (char) i << endl; 
 	}
 
-	while (characters.size() > 1) {
-		Node* a = removeLeast(characters); 
-		Node* b = removeLeast(characters); 
-		
+	// Insert nodes with corresponding frequencies into queue vector
+	for (int i = 0; i < 256; i++) {
+		if (freq[i] > 0) {
+			Node* node = new Node; 
+			node->freq = freq[i]; 
+			char* c = new char; 
+			char x = (char) i;
+			*c = x; 
+			node->ch = c; 
+			queue.push_back(node);
+			cout << "Pushed node with frequency " << node->freq << " and char " << *(node->ch) << endl; 
+		}
+	}
+
+	while (queue.size() > 1) {
+		Node* a = removeLeast(queue); 
+		Node* b = removeLeast(queue); 
+		//cout << "removed node a with ch = " << *(a->ch) << " and b with ch = " << *(b->ch) << endl; 
+
+
 		Node* p = new Node; 
 		p->freq = a->freq + b->freq; 
 		p->left = a; 
 		p->right = b; 
-		characters.push_back(p); 
-		cout << "Added node with frequency " << p->freq << "with p->left->ch = " << *(a->ch) << " and p->right->ch = " << *(b->ch) << endl;
+		queue.push_back(p); 
+		cout << "Added node with frequency " << p->freq << endl; //" with p->left->ch = " << *(a->ch) << " and p->right->ch = " << *(b->ch) << endl;
 		
 	}
+	cout << "abcd\n"; 
+
+	cout << "\"o\" = " << getCode(queue[0], 'o') << endl; 
+	cout << "\"m\" = " << getCode(queue[0], 'm') << endl; 
 
 
 }
@@ -41,10 +53,12 @@ CodeTree::~CodeTree()
 
 void CodeTree::printTree()
 {
+
 }
 
 void CodeTree::printCode()
 {
+
 }
 
 
@@ -92,15 +106,44 @@ int CodeTree::indexOfLeast(vector<Node*> nodes) {
 
 // Removes the node in the vector with the least frequency 
 // and returns a copy of it 
-Node* CodeTree::removeLeast(vector<Node*> nodes) {
+Node* CodeTree::removeLeast(vector<Node*> & nodes) {
 	int index = indexOfLeast(nodes); 
+	cout << "index = " << index << endl; 
+	cout << "nodes.size() before = " << nodes.size() << endl; 
 	Node* n = new Node; 
 	n->ch = nodes[index]->ch;
 	n->freq = nodes[index]->freq; 
 	n->left = nodes[index]->left;
 	n->right = nodes[index]->right; 
 	nodes.erase(nodes.begin() + index); 
+	cout << "nodes.size() after = " << nodes.size() << endl; 
 	return n; 
 }
 	
+// Checks whether the char is somewhere in the tree rooted 
+// at Node root
+bool containsChar(Node* root, char c) {
+	if (root->ch) return *(root->ch) == c; 
+	return containsChar(root->left, c) || containsChar(root->right, c);  
+}
 	
+// returns the code associated with a char on its final
+// recursive call. Returns -1 if it fails to find the char
+int getCodeHelper(Node* root, char c, int acc) {
+	if (root->ch) return acc; 
+	if (containsChar(root->left, c)) 
+		return getCodeHelper(root->left, c, (acc << 1));
+	if (containsChar(root->right, c))
+		return getCodeHelper(root->right, c, (acc << 1) + 1); 
+	else return -1; 
+}
+
+// Gets the code associated with a char in the tree with 
+// root at root. Returns -1 if the tree does not contain 
+// the char
+int CodeTree::getCode(Node* root, char c) {
+	if (containsChar(root, c))
+		return getCodeHelper(root, c, 0); 
+	else 
+		return -1; 
+}

@@ -142,7 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="Debug\moveover.txt" />
+    <Text Include="moveover.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

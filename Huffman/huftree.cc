@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
 		char ch;
 		while (fin >> std::noskipws >> ch) {	// don't skip whitespace
 			freq[(int)ch]++;
+			std::cout << "Incrementing freq[" << ch << "], i = " << (int)ch << std::endl; 
 		}
 
 		fin.close();
