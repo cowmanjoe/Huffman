@@ -1,4 +1,5 @@
 #include "codetree.h"
+#include <iostream>
 #include <vector>
 
 using namespace std; 
@@ -8,18 +9,27 @@ CodeTree::CodeTree(int freq[]) {
 	vector<Node*> characters;
 
 	// Insert nodes with corresponding frequencies into characters vector
-	for (unsigned int i = 0; i < sizeof(freq) / sizeof(freq[0]); i++) {
+	for (unsigned int i = 0; i < 256; i++) {
 		Node* node = new Node; 
 		node->freq = freq[i]; 
 		char* c = new char; 
 		*c = (char)i; 
 		node->ch = c; 
 		characters.push_back(node);
+		cout << "Pushed node with frequency " << node->freq << " and char " << *(node->ch) << endl; 
 	}
 
 	while (characters.size() > 1) {
-		int li = indexOfLeast(characters);
-		// TODO: erase least 2 elements
+		Node* a = removeLeast(characters); 
+		Node* b = removeLeast(characters); 
+		
+		Node* p = new Node; 
+		p->freq = a->freq + b->freq; 
+		p->left = a; 
+		p->right = b; 
+		characters.push_back(p); 
+		cout << "Added node with frequency " << p->freq << "with p->left->ch = " << *(a->ch) << " and p->right->ch = " << *(b->ch) << endl;
+		
 	}
 
 
@@ -66,7 +76,7 @@ void CodeTree::heapify(int* heap, int size) {
 
 
 // Finds the index of the node with the least frequency
-int indexOfLeast(vector<Node*> nodes) {
+int CodeTree::indexOfLeast(vector<Node*> nodes) {
 	int index = 0; 
 	// Set least to the frequency of the first element
 	int least = nodes[0]->freq; 
@@ -80,5 +90,17 @@ int indexOfLeast(vector<Node*> nodes) {
 	return index; 
 }
 
+// Removes the node in the vector with the least frequency 
+// and returns a copy of it 
+Node* CodeTree::removeLeast(vector<Node*> nodes) {
+	int index = indexOfLeast(nodes); 
+	Node* n = new Node; 
+	n->ch = nodes[index]->ch;
+	n->freq = nodes[index]->freq; 
+	n->left = nodes[index]->left;
+	n->right = nodes[index]->right; 
+	nodes.erase(nodes.begin() + index); 
+	return n; 
+}
 	
 	

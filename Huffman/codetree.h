@@ -12,6 +12,9 @@ public:
 	
 
 protected: 
+	Node* removeLeast(std::vector<Node*>); 
+	int indexOfLeast(std::vector<Node*>); 
+
 
 	void swapDown(int*, int, int); 
 	void heapify(int*, int); 

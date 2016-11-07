@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 		usage();
 	}
 	else
-		std::cout << "1 argument found.\n";
+		std::cout << "1 argument found: " << argv[1] << "\n";
 
 	int freq[256] = { 0 };	// array initialized to 0
 
@@ -34,6 +34,6 @@ int main(int argc, char *argv[]) {
 
 	ct.printTree();
 	ct.printCode();
-
+	std::cin.get(); 
 	return 0;
 }
