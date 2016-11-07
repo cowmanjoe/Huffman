@@ -4,8 +4,24 @@
 #include <string>
 
 using namespace std; 
-	
-	
+
+
+void printChar(int ch) {
+	if (ch < 16) {
+		std::cout << "x0" << std::hex << ch;
+	}
+	else if (ch < 32 || ch > 126) {
+		std::cout << "x" << std::hex << ch;
+	}
+	else {
+		std::cout << "\"" << (char)ch << "\"";
+	}
+}
+
+// Constructor for CodeTree which populates the queue vector 
+// with nodes according to the freq array given, then applies 
+// the huffman algorithm to it until there is only a single node 
+// remaining in the vector
 CodeTree::CodeTree(int freq[]) {
 
 	for (int i = 0; i < 256; i++) {
@@ -21,6 +37,8 @@ CodeTree::CodeTree(int freq[]) {
 			char x = (char) i;
 			*c = x; 
 			node->ch = c; 
+			node->left = NULL;
+			node->right = NULL; 
 			queue.push_back(node);
 			cout << "Pushed node with frequency " << node->freq << " and char " << *(node->ch) << endl; 
 		}
@@ -42,23 +60,10 @@ CodeTree::CodeTree(int freq[]) {
 		
 	}
 
-	cout << "\"o\" = " << getCode(queue[0], 'o') << endl; 
-	cout << "\"m\" = " << getCode(queue[0], 'm') << endl; 
-
 }
 
 CodeTree::~CodeTree()
 {
-}
-
-void CodeTree::printTree()
-{
-
-}
-
-void CodeTree::printCode()
-{
-
 }
 
 
@@ -150,4 +155,23 @@ string CodeTree::getCode(Node* root, char c) {
 		return getCodeHelper(root, c, ""); 
 	else 
 		return ""; 
+}
+
+void CodeTree::printCodeHelper(Node* root, Node* current) {
+	if (current == NULL) return;
+	if (current->ch) {
+		printChar((int)*(current->ch));
+		cout << ":" << getCode(root, *(current->ch)) << endl;
+	}
+	printCodeHelper(root, current->left); 
+	printCodeHelper(root, current->right); 
+}
+
+void CodeTree::printTree()
+{
+}
+
+void CodeTree::printCode()
+{
+	printCodeHelper(queue[0], queue[0]); 
 }

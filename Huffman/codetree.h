@@ -22,7 +22,7 @@ protected:
 
 	std::string getCode(Node* root, char c); 
 
-	
+	void printCodeHelper(Node* root, Node* current);
 
 	std::vector<Node*> queue;
 };
