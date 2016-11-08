@@ -173,5 +173,6 @@ void CodeTree::printTree()
 
 void CodeTree::printCode()
 {
-	printCodeHelper(queue[0], queue[0]); 
+	if (queue.size() > 0)
+		printCodeHelper(queue[0], queue[0]); 
 }
