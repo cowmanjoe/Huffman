@@ -1,10 +1,11 @@
 #include "node.h"
+#include "pqueue.h"
 #include <vector> 
 #include <string>
 
 class CodeTree {
-	Node* removeLeast(std::vector<Node*>&);
-	int indexOfLeast(std::vector<Node*>);
+	//Node* removeLeast(std::vector<Node*>&);
+	//int indexOfLeast(std::vector<Node*>);
 
 
 	void swapDown(int*, int, int);
@@ -14,7 +15,7 @@ class CodeTree {
 
 	void printCodeHelper(Node* root, Node* current);
 
-	std::vector<Node*> queue;
+	PQueue* queue;
 
 public: 
 	CodeTree(int[]); 

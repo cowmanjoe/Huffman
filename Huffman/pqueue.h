@@ -8,8 +8,8 @@ class PQueue {
 	vector<Node*> nodes; 
 
 
-	Node* removeLeast(std::vector<Node*>&);
-	int indexOfLeast(std::vector<Node*>);
+	Node* removeLeast();
+	int indexOfLeast();
 
 public:
 	PQueue(int[]); 

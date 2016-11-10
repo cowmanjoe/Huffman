@@ -1,7 +1,9 @@
 #include "pqueue.h"
+#include <iostream> 
 
+using namespace std; 
 
-PQueue::PQueue(int[] freq) {
+PQueue::PQueue(int freq[]) {
 	// Insert nodes with corresponding frequencies into queue vector
 	for (int i = 0; i < 256; i++) {
 		if (freq[i] > 0) {
@@ -19,8 +21,8 @@ PQueue::PQueue(int[] freq) {
 	}
 
 	while (nodes.size() > 1) {
-		Node* a = removeLeast(queue);
-		Node* b = removeLeast(queue);
+		Node* a = removeLeast();
+		Node* b = removeLeast();
 		//cout << "removed node a with ch = " << *(a->ch) << " and b with ch = " << *(b->ch) << endl; 
 
 
@@ -33,6 +35,11 @@ PQueue::PQueue(int[] freq) {
 		cout << "Added node with frequency " << p->freq << endl; //" with p->left->ch = " << *(a->ch) << " and p->right->ch = " << *(b->ch) << endl;
 
 	}
+}
+
+Node* PQueue::peekHighest() {
+	if (nodes.size() > 0) return nodes[0]; 
+	return NULL; 
 }
 
 
@@ -56,7 +63,7 @@ int PQueue::indexOfLeast() {
 // and returns a copy of it 
 // REQUIRES: at least 1 node in the nodes vector
 Node* PQueue::removeLeast() {
-	int index = indexOfLeast(nodes);
+	int index = indexOfLeast();
 	cout << "index = " << index << endl;
 	cout << "nodes.size() before = " << nodes.size() << endl;
 	Node* n = new Node;
