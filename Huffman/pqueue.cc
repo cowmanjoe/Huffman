@@ -43,6 +43,34 @@ Node* PQueue::peekHighest() {
 }
 
 
+vector<Node*> getNodesHelper(int f, Node* node) {
+	if (node != NULL) {
+		vector<Node*> ans; 
+		if (node->freq == f) { 
+			ans.push_back(node); 
+			return ans;
+		}
+		else if (node->freq > f) {
+			vector<Node*> leftNodes = getNodesHelper(f, node->left); 
+			vector<Node*> rightNodes = getNodesHelper(f, node->right); 
+			ans.insert(ans.end(), leftNodes.begin(), leftNodes.end());
+			ans.insert(ans.end(), rightNodes.begin(), rightNodes.end());
+			return ans;
+		}
+	}
+	return vector<Node*>(); 
+}
+
+
+// Returns a vector containing all the nodes with the given frequency
+vector<Node*> PQueue::getNodesWithFrequency(int f) {
+	if (nodes.size() > 0) {
+		return getNodesHelper(f, nodes[0]); 
+	}
+	return vector<Node*>(); 
+}
+
+
 // Finds the index of the node with the least frequency
 // REQUIRES: at least one node in the nodes vector
 int PQueue::indexOfLeast() {

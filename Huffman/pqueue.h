@@ -15,5 +15,7 @@ public:
 	PQueue(int[]); 
 	~PQueue(); 
 
+	vector<Node*> getNodesWithFrequency(int f); 
+
 	Node* peekHighest(); 
 };

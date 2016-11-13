@@ -76,10 +76,28 @@ void CodeTree::printCodeHelper(Node* root, Node* current) {
 void CodeTree::printTree()
 {
 }
-
+/*
 void CodeTree::printCode()
 {
 	Node* n = queue->peekHighest();
 	if (n != NULL)
 		printCodeHelper(n, n); 
+}
+*/
+
+void CodeTree::printCode()
+{
+	Node* n = queue->peekHighest(); 
+	if (n != NULL) {
+		int highestFreq = n->freq; 
+		for (int i = highestFreq; i > 0; i--) {
+			vector<Node*> nodes = queue->getNodesWithFrequency(i); 
+			for (vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
+				if ((*it)->ch) {
+					printChar((int)*((*it)->ch));
+					cout << ":" << getCode(n, *((*it)->ch)) << endl; 
+				}
+			}
+		}
+	}
 }
