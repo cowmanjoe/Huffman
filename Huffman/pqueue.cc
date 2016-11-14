@@ -16,7 +16,7 @@ PQueue::PQueue(int freq[]) {
 			node->left = NULL;
 			node->right = NULL;
 			nodes.push_back(node);
-			cout << "Pushed node with frequency " << node->freq << " and char " << *(node->ch) << endl;
+			//cout << "Pushed node with frequency " << node->freq << " and char " << *(node->ch) << endl;
 		}
 	}
 
@@ -32,7 +32,7 @@ PQueue::PQueue(int freq[]) {
 		p->left = a;
 		p->right = b;
 		nodes.push_back(p);
-		cout << "Added node with frequency " << p->freq << endl; //" with p->left->ch = " << *(a->ch) << " and p->right->ch = " << *(b->ch) << endl;
+		//cout << "Added node with frequency " << p->freq << endl; //" with p->left->ch = " << *(a->ch) << " and p->right->ch = " << *(b->ch) << endl;
 
 	}
 }
@@ -92,14 +92,11 @@ int PQueue::indexOfLeast() {
 // REQUIRES: at least 1 node in the nodes vector
 Node* PQueue::removeLeast() {
 	int index = indexOfLeast();
-	cout << "index = " << index << endl;
-	cout << "nodes.size() before = " << nodes.size() << endl;
 	Node* n = new Node;
 	n->ch = nodes[index]->ch;
 	n->freq = nodes[index]->freq;
 	n->left = nodes[index]->left;
 	n->right = nodes[index]->right;
 	nodes.erase(nodes.begin() + index);
-	cout << "nodes.size() after = " << nodes.size() << endl;
 	return n;
 }

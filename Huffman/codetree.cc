@@ -63,27 +63,10 @@ string CodeTree::getCode(Node* root, char c) {
 		return ""; 
 }
 
-void CodeTree::printCodeHelper(Node* root, Node* current) {
-	if (current == NULL) return;
-	if (current->ch) {
-		printChar((int)*(current->ch));
-		cout << ":" << getCode(root, *(current->ch)) << endl;
-	}
-	printCodeHelper(root, current->left); 
-	printCodeHelper(root, current->right); 
-}
 
 void CodeTree::printTree()
 {
 }
-/*
-void CodeTree::printCode()
-{
-	Node* n = queue->peekHighest();
-	if (n != NULL)
-		printCodeHelper(n, n); 
-}
-*/
 
 void CodeTree::printCode()
 {
